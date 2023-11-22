@@ -1,16 +1,9 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const programmeRouter = createTRPCRouter({
-  hello: publicProcedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input.text}`,
-      };
-    }),
-
   create: publicProcedure
     .input(z.object({ name: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
@@ -24,9 +17,19 @@ export const programmeRouter = createTRPCRouter({
       });
     }),
 
-  getLatest: publicProcedure.query(({ ctx }) => {
-    return ctx.db.programme.findFirst({
-      orderBy: { createdAt: "desc" },
-    });
-  }),
+  getNameById: publicProcedure
+    .input(
+      z.object({ id: z.number().positive("ID must be a positive integer") }),
+    )
+    .query(async ({ input, ctx }) => {
+      const programme = await ctx.db.programme.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+
+      if (!programme) throw new TRPCError({ code: "NOT_FOUND" });
+
+      return programme.name;
+    }),
 });
