@@ -2,7 +2,7 @@ import Head from "next/head";
 import { api } from "~/utils/api";
 
 export default function Home() {
-  const hello = api.programme.hello.useQuery({ text: "from Jakob" });
+  const programmeName = api.programme.getNameById.useQuery({ id: 1 }).data;
 
   return (
     <>
@@ -12,7 +12,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="min-h-screen bg-black">
-        <div className=""></div>
+        <div>
+          <h1 className="text-white">
+            {`Name of study programme: ${programmeName ?? "Loading..."}`}
+          </h1>
+        </div>
       </main>
     </>
   );
