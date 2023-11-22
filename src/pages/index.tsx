@@ -2,7 +2,7 @@ import Head from "next/head";
 import { api } from "~/utils/api";
 
 export default function Home() {
-  const programmeName = api.programme.getNameById.useQuery({ id: 1 }).data;
+  const programme = api.programme.getById.useQuery({ id: 1 });
 
   return (
     <>
@@ -14,7 +14,9 @@ export default function Home() {
       <main className="min-h-screen bg-black">
         <div>
           <h1 className="text-white">
-            {`Name of study programme: ${programmeName ?? "Loading..."}`}
+            {`Name of study programme: ${
+              programme.data ? programme.data.name : "Loading..."
+            }`}
           </h1>
         </div>
       </main>
