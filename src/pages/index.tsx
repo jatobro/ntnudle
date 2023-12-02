@@ -2,7 +2,11 @@ import Head from "next/head";
 import { api } from "~/utils/api";
 
 export default function Home() {
-  const programme = api.programme.getById.useQuery({ id: 1 });
+  const { data, isLoading } = api.programme.getAll.useQuery();
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (!data) return <div>Something went wrong</div>;
 
   return (
     <>
@@ -13,11 +17,12 @@ export default function Home() {
       </Head>
       <main className="min-h-screen bg-black">
         <div>
-          <h1 className="text-white">
-            {`Name of study programme: ${
-              programme.data ? programme.data.name : "Loading..."
-            }`}
-          </h1>
+          <div className="text-white">Study programmes of NTNU:</div>
+          {data.map((programme) => (
+            <div className="text-white" key={programme.id}>
+              {programme.name}
+            </div>
+          ))}
         </div>
       </main>
     </>
