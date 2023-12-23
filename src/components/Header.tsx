@@ -1,12 +1,13 @@
 import { UserButton } from "@clerk/nextjs";
+import { LightSwitch } from "./LightSwitch";
 
 export const Header = () => {
   return (
     <div className="bg-blue p-1 flex flex-row justify-between min-w-screen h-10">
-      <div></div>
-      <h1 className="text-white text-xl">NTNUdle</h1>
+      <LightSwitch />
+      <h1 className="text-white">Created by @jatobro</h1>
       <div className="">
-        <UserButton showName={false} afterSignOutUrl="/" />
+        <UserButton afterSignOutUrl="/" />
       </div>
     </div>
   );

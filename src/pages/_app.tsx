@@ -15,7 +15,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         baseTheme: dark,
       }}
     >
-      <div className="font-mono">
+      <div className="font-mono text-black">
         <Header />
         <Component {...pageProps} />
       </div>
