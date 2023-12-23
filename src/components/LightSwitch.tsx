@@ -1,26 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
 export const LightSwitch = () => {
-  const systemPrefersDark = useMediaQuery(
-    {
-      query: "(prefers-color-scheme: dark)",
-    },
-    undefined,
-    (prefersDark) => {
-      setIsDark(prefersDark);
-    },
-  );
-  const [isDark, setIsDark] = useState(systemPrefersDark);
+  const systemPrefersDark = useMediaQuery({
+    query: "(prefers-color-scheme: dark)",
+  });
+
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    setIsDark(systemPrefersDark);
+  }, [systemPrefersDark]);
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDark]);
+
   return (
     <div>
       <input
+        id="light-switch"
+        className="sr-only"
         type="checkbox"
         name="light-switch"
         checked={isDark}
         onChange={(e) => setIsDark(e.target.checked)}
       />
-      <label htmlFor="light-theme">{isDark ? "🌙" : "🔆"}</label>
+      <label htmlFor="light-switch">{isDark ? "🌙" : "🔆"}</label>
     </div>
   );
 };

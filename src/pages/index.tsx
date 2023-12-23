@@ -15,7 +15,7 @@ export default function Home() {
         <meta name="description" content="NTNU guessing game" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="min-h-screen bg-white dark:bg-slate-800 dark:text-white">
+      <main className="min-h-screen dark:bg-slate-800 dark:text-white">
         HELLLOOOO
       </main>
     </>
