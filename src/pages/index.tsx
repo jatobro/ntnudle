@@ -4,10 +4,6 @@ import { api } from "~/utils/api";
 export default function Home() {
   const { data, isLoading } = api.programme.getAll.useQuery();
 
-  if (isLoading) return <div>Loading...</div>;
-
-  if (!data) return <div>Something went wrong</div>;
-
   return (
     <>
       <Head>
@@ -16,7 +12,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="min-h-screen dark:bg-slate-800 dark:text-white">
-        HELLLOOOO
+        {isLoading
+          ? "Loading..."
+          : !data
+          ? "Something went wrong"
+          : "IT WORKS!!!"}
       </main>
     </>
   );

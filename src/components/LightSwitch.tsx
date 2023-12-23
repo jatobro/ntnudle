@@ -24,13 +24,15 @@ export const LightSwitch = () => {
     <div>
       <input
         id="light-switch"
-        className="sr-only"
+        className="sr-only bg-red-600"
         type="checkbox"
         name="light-switch"
         checked={isDark}
         onChange={(e) => setIsDark(e.target.checked)}
       />
-      <label htmlFor="light-switch">{isDark ? "🌙" : "🔆"}</label>
+      <label className="h-14 w-14" htmlFor="light-switch">
+        {isDark ? "🌙" : "🔆"}
+      </label>
     </div>
   );
 };
