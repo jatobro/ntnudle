@@ -17,9 +17,11 @@ export default function Home() {
       </Head>
       <main className="min-h-screen bg-black">
         <div>
-          <div className="text-white">Study programmes of NTNU:</div>
+          <div className="text-white text-sm mb-3">
+            Study programmes of NTNU:
+          </div>
           {data.map((programme) => (
-            <div className="text-white" key={programme.id}>
+            <div className="text-white text-sm" key={programme.id}>
               {programme.name}
             </div>
           ))}

@@ -6,11 +6,19 @@ import { api } from "~/utils/api";
 import { Header } from "~/components/Header";
 import "~/styles/globals.css";
 
+import { dark } from "@clerk/themes";
+
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <ClerkProvider>
-      <Header />
-      <Component {...pageProps} />
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+      }}
+    >
+      <div className="font-mono">
+        <Header />
+        <Component {...pageProps} />
+      </div>
     </ClerkProvider>
   );
 };
