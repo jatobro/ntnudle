@@ -3,7 +3,7 @@ import { type AppType } from "next/app";
 
 import { Footer } from "~/components/Footer";
 import { Header } from "~/components/Header";
-import { DEFAULT } from "~/constants";
+import { DEFAULT } from "~/constants/fonts";
 
 import "~/styles/globals.css";
 import { api } from "~/utils/api";
