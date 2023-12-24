@@ -10,7 +10,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="dark:bg-slate-800 dark:text-white flex flex-col items-center justify-around flex-1">
-        <div className="bg-black text-5xl">NTNUdle</div>
+        <div className="text-5xl">Guess today&apos;s study programme!</div>
         <SearchBar />
         <div></div>
       </main>
