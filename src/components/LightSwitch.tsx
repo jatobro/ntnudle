@@ -21,7 +21,7 @@ export const LightSwitch = () => {
   }, [isDark]);
 
   return (
-    <div>
+    <>
       <input
         id="light-switch"
         className="sr-only"
@@ -33,6 +33,6 @@ export const LightSwitch = () => {
       <label className="h-14 w-14 text-xl" htmlFor="light-switch">
         {isDark ? "🌙" : "🔆"}
       </label>
-    </div>
+    </>
   );
 };
