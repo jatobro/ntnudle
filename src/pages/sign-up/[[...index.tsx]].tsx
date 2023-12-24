@@ -1,10 +1,11 @@
 import { SignUp } from "@clerk/nextjs";
+import { PageBody } from "~/components/PageBody";
 
 const SignInPage = () => {
   return (
-    <main className="bg-black min-h-screen">
+    <PageBody>
       <SignUp path="/sign-up" routing="path" signInUrl="/sign-in" />
-    </main>
+    </PageBody>
   );
 };
 

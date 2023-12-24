@@ -1,17 +1,30 @@
-import { UserButton } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
+import Link from "next/link";
 import { LightSwitch } from "./LightSwitch";
+import { UserButton } from "./UserButton";
 
 export const Header = () => {
+  const { isSignedIn, user, isLoaded } = useUser();
+
   return (
-    <div className="bg-blue p-1 flex flex-row justify-between items-center min-w-screen h-10">
-      <div className="ml-5">
+    <header className="bg-blue p-1 flex flex-row justify-between items-center min-w-screen h-10 text-white text-xs">
+      <div className="h-10 w-40 flex items-center pl-2">
         <LightSwitch />
       </div>
-
-      <h1 className="text-white text-sm">Created by @jatobro</h1>
-      <div className="mr-5">
-        <UserButton afterSignOutUrl="/" />
+      <Link className="text-2xl" href="/">
+        NTNUdle
+      </Link>
+      <div className="h-10 w-40 flex justify-center items-center ">
+        {isLoaded ? (
+          isSignedIn ? (
+            <UserButton label={user.fullName} />
+          ) : (
+            <Link href="/sign-in">Sign In</Link>
+          )
+        ) : (
+          ""
+        )}
       </div>
-    </div>
+    </header>
   );
 };
