@@ -8,20 +8,23 @@ export const LightSwitch = () => {
 
   const [isDark, setIsDark] = useState(true);
 
+  const tailwindDarkToggler = (dark: boolean) =>
+    dark
+      ? document.documentElement.classList.add("dark")
+      : document.documentElement.classList.remove("dark");
+
   useEffect(() => {
     setIsDark(systemPrefersDark);
+
+    tailwindDarkToggler(systemPrefersDark);
   }, [systemPrefersDark]);
 
   useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    tailwindDarkToggler(isDark);
   }, [isDark]);
 
   return (
-    <>
+    <div>
       <input
         id="light-switch"
         className="sr-only"
@@ -33,6 +36,6 @@ export const LightSwitch = () => {
       <label className="h-14 w-14 text-xl" htmlFor="light-switch">
         {isDark ? "🌙" : "🔆"}
       </label>
-    </>
+    </div>
   );
 };

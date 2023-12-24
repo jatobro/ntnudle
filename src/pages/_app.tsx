@@ -1,17 +1,20 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { type AppType } from "next/app";
+
 import { Footer } from "~/components/Footer";
 import { Header } from "~/components/Header";
+import { DEFAULT } from "~/constants";
+
 import "~/styles/globals.css";
 import { api } from "~/utils/api";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <div className="app">
+    <div style={{ fontFamily: DEFAULT }}>
       <ClerkProvider
         appearance={{
           variables: {
-            fontFamily: "Courier New",
+            fontFamily: DEFAULT,
           },
         }}
       >
