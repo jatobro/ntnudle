@@ -48,7 +48,7 @@ export const ProgrammeGuesser = () => {
 
               return (
                 <button
-                  className="bg-blue p-2 border-2 border-black dark:border-white text-white"
+                  className="bg-blue p-2 border-2 border-black dark:border-white text-white opacity-50 active:opacity-100"
                   key={filteredProgramme.id}
                   onClick={() => setSearchQuery(filteredProgramme.name)}
                 >
