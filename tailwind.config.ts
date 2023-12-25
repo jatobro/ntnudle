@@ -8,7 +8,11 @@ export default {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
+      colors: {
+        blue: "#00509E",
+      },
     },
   },
+  darkMode: "class",
   plugins: [],
 } satisfies Config;
