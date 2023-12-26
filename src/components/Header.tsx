@@ -14,12 +14,14 @@ export const Header = () => {
       <Link className="text-2xl" href="/">
         NTNUdle
       </Link>
-      <div className="h-10 flex items-center bg-red-500 w-40">
+      <div className="h-10 flex items-center w-40 justify-end">
         {isLoaded ? (
           isSignedIn ? (
             <UserButton label={user.fullName} />
           ) : (
-            <Link href="/sign-in">Sign In</Link>
+            <Link className="text-end" href="/sign-in">
+              Sign In
+            </Link>
           )
         ) : (
           <div></div>

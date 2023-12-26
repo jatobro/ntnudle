@@ -6,7 +6,7 @@ type UserButtonProps = {
 
 export const UserButton = ({ label = "" }: UserButtonProps) => {
   return (
-    <div className="flex flex-row items-center justify-around bg-green-500 w-full">
+    <div className="flex flex-row items-center justify-around w-full">
       <label className="">{label}</label>
       <ClerkUserButton
         afterSignOutUrl="/"
