@@ -8,13 +8,13 @@ export const Header = () => {
 
   return (
     <header className="bg-blue p-1 flex flex-row justify-between items-center h-10 text-white text-xs gap-4">
-      <div className="h-10 w-40 flex items-center pl-2">
+      <div className="h-10 w-40 flex items-center pl-2 min-w-fit">
         <LightSwitch />
       </div>
       <Link className="text-2xl" href="/">
         NTNUdle
       </Link>
-      <div className="h-10 w-40 flex items-center justify-end pr-2">
+      <div className="h-10 flex items-center bg-red-500 w-40">
         {isLoaded ? (
           isSignedIn ? (
             <UserButton label={user.fullName} />

@@ -25,6 +25,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-responsive": "^9.0.2",
+    "shadcn-ui": "latest",
     "superjson": "^1.13.1",
     "zod": "^3.22.4"
   },
