@@ -22,42 +22,46 @@ export const ProgrammeGuesser = () => {
   );
 
   return (
-    <div className="flex flex-col gap-4 w-96 h-14">
-      <form
-        className="flex gap-2 h-14"
-        onSubmit={(e) => {
-          e.preventDefault();
-          setGuess(searchQuery);
-        }}
-      >
-        <SearchBar
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <SubmitButton
-          disabled={
-            !programmes.some((programme) => programme.name === searchQuery)
-          }
-        />
-      </form>
-      <div className="flex flex-col dark:text-slate-200 h-96">
-        {isLoading && searchQuery !== ""
-          ? "...Loading"
-          : filteredProgrammes.map((filteredProgramme, idx) => {
-              if (idx >= MAX_SUGGESTIONS) return <div></div>;
+    <div className="flex flex-col gap-4 w-2/3 h-2/3 items-center">
+      <div className="w-1/3 min-w-fit">
+        <form
+          className="h-12 flex flex-row gap-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            setGuess(searchQuery);
+          }}
+        >
+          {" "}
+          <SearchBar
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <SubmitButton
+            disabled={
+              !programmes.some((programme) => programme.name === searchQuery)
+            }
+          />
+        </form>
+        <div className="flex flex-col dark:text-slate-200 ">
+          {isLoading && searchQuery !== ""
+            ? "...Loading"
+            : filteredProgrammes.map((filteredProgramme, idx) => {
+                if (idx >= MAX_SUGGESTIONS) return <div></div>;
 
-              return (
-                <button
-                  className="bg-blue p-2 border-2 border-black dark:border-white text-white opacity-50 active:opacity-100"
-                  key={filteredProgramme.id}
-                  onClick={() => setSearchQuery(filteredProgramme.name)}
-                >
-                  {filteredProgramme.name}
-                </button>
-              );
-            })}
+                return (
+                  <button
+                    className="bg-blue p-2 border-2 border-black dark:border-white text-white opacity-50 active:opacity-100"
+                    key={filteredProgramme.id}
+                    onClick={() => setSearchQuery(filteredProgramme.name)}
+                  >
+                    {filteredProgramme.name}
+                  </button>
+                );
+              })}
+        </div>
       </div>
-      <div className="dark:text-white">{guess}</div>
+
+      <div className="dark:text-white flex justify-center">{guess}</div>
     </div>
   );
 };

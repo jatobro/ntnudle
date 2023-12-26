@@ -7,7 +7,7 @@ export const Header = () => {
   const { isSignedIn, user, isLoaded } = useUser();
 
   return (
-    <header className="bg-blue p-1 flex flex-row justify-between items-center min-w-screen h-10 text-white text-xs">
+    <header className="bg-blue p-1 flex flex-row justify-between items-center h-10 text-white text-xs gap-4">
       <div className="h-10 w-40 flex items-center pl-2">
         <LightSwitch />
       </div>

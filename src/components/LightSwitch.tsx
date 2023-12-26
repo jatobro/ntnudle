@@ -1,3 +1,4 @@
+import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
@@ -23,6 +24,8 @@ export const LightSwitch = () => {
     tailwindDarkToggler(isDark);
   }, [isDark]);
 
+  const { isSignedIn } = useUser();
+
   return (
     <div>
       <input
@@ -32,9 +35,10 @@ export const LightSwitch = () => {
         name="light-switch"
         checked={isDark}
         onChange={(e) => setIsDark(e.target.checked)}
+        disabled={!isSignedIn}
       />
       <label className="h-14 w-14 text-xl" htmlFor="light-switch">
-        {isDark ? "🌙" : "🔆"}
+        {isSignedIn ? (isDark ? "🌙" : "🔆") : ""}
       </label>
     </div>
   );

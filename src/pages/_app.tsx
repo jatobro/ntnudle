@@ -3,26 +3,23 @@ import { type AppType } from "next/app";
 
 import { Footer } from "~/components/Footer";
 import { Header } from "~/components/Header";
-import { DEFAULT } from "~/constants/fonts";
 
 import "~/styles/globals.css";
 import { api } from "~/utils/api";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <div style={{ fontFamily: DEFAULT }}>
+    <div className="app">
       <ClerkProvider
         appearance={{
           variables: {
-            fontFamily: DEFAULT,
+            fontFamily: "Courier New, Courier, monospace",
           },
         }}
       >
-        <div className="h-screen flex flex-col">
-          <Header />
-          <Component {...pageProps} />
-          <Footer />
-        </div>
+        <Header />
+        <Component {...pageProps} />
+        <Footer />
       </ClerkProvider>
     </div>
   );

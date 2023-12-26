@@ -1,12 +1,12 @@
 import { SignIn } from "@clerk/nextjs";
 
-import { PageBody } from "~/components/PageBody";
+import { Body } from "~/components/Body";
 
 const SignInPage = () => {
   return (
-    <PageBody>
+    <Body>
       <SignIn path="/sign-in" routing="path" signUpUrl="/sign-up" />
-    </PageBody>
+    </Body>
   );
 };
 
