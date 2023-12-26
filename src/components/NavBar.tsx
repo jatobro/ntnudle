@@ -3,11 +3,11 @@ import Link from "next/link";
 import { LightSwitch } from "./LightSwitch";
 import { UserButton } from "./UserButton";
 
-export const Header = () => {
+export const NavBar = () => {
   const { isSignedIn, user, isLoaded } = useUser();
 
   return (
-    <header className="bg-blue p-1 flex flex-row justify-between items-center h-10 text-white text-xs gap-4">
+    <header className="bg-red-500 p-1 flex flex-row justify-between items-center h-10 text-white text-xs gap-4">
       <div className="h-10 w-40 flex items-center pl-2 min-w-fit">
         <LightSwitch />
       </div>

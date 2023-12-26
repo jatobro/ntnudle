@@ -1,6 +1,5 @@
 import Head from "next/head";
 
-import { Body } from "~/components/Body";
 import { Introduction } from "~/components/Introduction";
 import { ProgrammeGuesser } from "~/components/ProgrammeGuesser";
 
@@ -12,10 +11,10 @@ export default function Home() {
         <meta name="description" content="NTNU guessing game" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Body>
+      <main>
         <Introduction />
         <ProgrammeGuesser />
-      </Body>
+      </main>
     </>
   );
 }

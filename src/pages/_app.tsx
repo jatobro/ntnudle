@@ -1,27 +1,29 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { type AppType } from "next/app";
-
-import { Footer } from "~/components/Footer";
-import { Header } from "~/components/Header";
+import { Inter as FontSans } from "next/font/google";
+import { Layout } from "~/components/Layout";
 
 import "~/styles/globals.css";
 import { api } from "~/utils/api";
 
+export const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <div className="app">
-      <ClerkProvider
-        appearance={{
-          variables: {
-            fontFamily: "Courier New, Courier, monospace",
-          },
-        }}
-      >
-        <Header />
+    <ClerkProvider
+      appearance={{
+        variables: {
+          fontFamily: "Courier New, Courier, monospace",
+        },
+      }}
+    >
+      <Layout>
         <Component {...pageProps} />
-        <Footer />
-      </ClerkProvider>
-    </div>
+      </Layout>
+    </ClerkProvider>
   );
 };
 
