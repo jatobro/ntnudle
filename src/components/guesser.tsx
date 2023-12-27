@@ -2,8 +2,8 @@ import { type Programme } from "@prisma/client";
 import { useState } from "react";
 import { api } from "~/utils/api";
 
-import { SearchBar } from "./SearchBar";
-import { SubmitButton } from "./SubmitButton";
+import { SearchBar } from "./search-bar";
+import { SubmitButton } from "./submit-button";
 
 const MAX_SUGGESTIONS = 7;
 
@@ -42,7 +42,7 @@ export const ProgrammeGuesser = () => {
             }
           />
         </form>
-        <div className="flex flex-col dark:text-slate-200 ">
+        <div className="flex flex-col dark:text-slate-200">
           {isLoading && searchQuery !== ""
             ? "...Loading"
             : filteredProgrammes.map((filteredProgramme, idx) => {

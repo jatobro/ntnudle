@@ -1,16 +1,30 @@
-import { Footer } from "./Footer";
-import { NavBar } from "./NavBar";
+import { type PropsWithChildren } from "react";
 
-type LayoutProps = {
-  children?: React.ReactNode;
-};
+import { Footer } from "./footer";
+import { NavBar } from "./nav-bar";
 
-export const Layout = ({ children = "" }: LayoutProps) => {
+import { Inter as FontSans } from "next/font/google";
+
+import { cn } from "~/lib/utils";
+
+export const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+export const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <div className="flex flex-col h-screen justify-between bg-green-500">
+    <main
+      className={cn(
+        "overflow-none flex flex-col h-screen font-sans",
+        fontSans.variable,
+      )}
+    >
       <NavBar />
-      <main className="bg-red-500">{children}</main>
+      <div className="h-full flex flex-col items-center justify-around">
+        {children}
+      </div>
       <Footer />
-    </div>
+    </main>
   );
 };
