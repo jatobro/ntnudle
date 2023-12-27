@@ -13,7 +13,7 @@ import {
 
 import { cn } from "~/lib/utils";
 
-import { fontSans } from "./page-layout";
+import { fontSans } from "./layout";
 
 export const ModeToggle = () => {
   const { setTheme } = useTheme();
