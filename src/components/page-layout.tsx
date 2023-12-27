@@ -1,6 +1,6 @@
 import { type PropsWithChildren } from "react";
 
-import { Footer } from "./footer";
+import { Footer } from "./footer-comp";
 import { NavBar } from "./nav-bar";
 
 import { Inter as FontSans } from "next/font/google";

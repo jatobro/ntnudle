@@ -1,5 +1,5 @@
 import { ProgrammeGuesser } from "~/components/guesser";
-import { Layout } from "~/components/layout";
+import { Layout } from "~/components/page-layout";
 
 export default function Home() {
   return (
