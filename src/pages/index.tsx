@@ -8,9 +8,9 @@ const Home = () => {
         src="/logo.svg"
         alt="NTNU logo"
         ratio={16 / 9}
-        width={500}
+        width={200}
       />
-      <H2>Guess NTNU Study Programme</H2>
+      <H2 centered>Guess NTNU Study Programme</H2>
     </div>
   );
 };
