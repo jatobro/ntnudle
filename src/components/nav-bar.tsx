@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { useRouter } from "next/router";
 import { ModeToggle } from "./mode-toggle";
-import { H1 } from "./typography/h1";
+import { P } from "./typography/p";
 import { Button } from "./ui/button";
 
 export const NavBar = () => {
@@ -21,7 +21,7 @@ export const NavBar = () => {
         className="text-2xl flex-1 flex justify-center items-center"
         href="/"
       >
-        <H1>NTNUdle</H1>
+        <P>NTNUdle</P>
       </Link>
       <div className="flex-1 flex justify-end items-center">
         {isLoaded ? (
