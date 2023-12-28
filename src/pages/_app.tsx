@@ -1,8 +1,8 @@
 import { ClerkProvider } from "@clerk/nextjs";
-
 import { type AppType } from "next/app";
 import Head from "next/head";
 
+import { Layout } from "~/components/layout";
 import { ThemeProvider } from "~/components/providers/theme-provider";
 
 import "~/styles/globals.css";
@@ -23,7 +23,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           <meta name="description" content="NTNU guessing game" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </ThemeProvider>
     </ClerkProvider>
   );

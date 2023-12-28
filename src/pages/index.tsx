@@ -1,10 +1,5 @@
-import { ProgrammeGuesser } from "~/components/guesser";
-import { Layout } from "~/components/layout";
+const Home = () => {
+  return <>Home</>;
+};
 
-export default function Home() {
-  return (
-    <Layout>
-      <ProgrammeGuesser />
-    </Layout>
-  );
-}
+export default Home;
