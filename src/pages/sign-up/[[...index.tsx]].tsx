@@ -1,12 +1,11 @@
-import { SignUp } from "@clerk/nextjs";
-import { PageBody } from "~/components/PageBody";
+import { SignUp as ClerkSignUp } from "@clerk/nextjs";
 
-const SignInPage = () => {
+export const SignUp = () => {
   return (
-    <PageBody>
-      <SignUp path="/sign-up" routing="path" signInUrl="/sign-in" />
-    </PageBody>
+    <div className="flex items-center">
+      <ClerkSignUp path="/sign-up" routing="path" signInUrl="/sign-in" />
+    </div>
   );
 };
 
-export default SignInPage;
+export default SignUp;

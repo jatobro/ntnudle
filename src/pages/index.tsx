@@ -1,25 +1,122 @@
-import Head from "next/head";
-import Image from "next/image";
+import { ImageComponent } from "~/components/image";
+import { Button } from "~/components/ui/button";
+import { Input } from "~/components/ui/input";
 
-import { ProgrammeGuesser } from "~/components/ProgrammeGuesser";
+import { api } from "~/utils/api";
 
-export default function Home() {
-  return (
-    <>
-      <Head>
-        <title>NTNUdle</title>
-        <meta name="description" content="NTNU guessing game" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main className="bg-slate-200 dark:bg-slate-800 flex flex-col items-center justify-start flex-1 p-10 gap-10">
-        <div className="flex flex-row items-center gap-4">
-          <Image src="/logo.svg" alt="logo" width={200} height={200} />
-          <h1 className="text-5xl dark:text-slate-200 w-96">
-            Guess today&apos;s study programme!
-          </h1>
-        </div>
-        <ProgrammeGuesser />
-      </main>
-    </>
+import { type Programme } from "@prisma/client";
+import { useState } from "react";
+import { H3 } from "~/components/typography/h3";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "~/components/ui/table";
+
+const Home = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [guesses, setGuesses] = useState<Programme[]>([]);
+
+  const { data } = api.programme.getAll.useQuery();
+
+  if (!data) return <div>Something went wrong...</div>;
+
+  const allProgrammes: Programme[] = data;
+
+  const dailyProgramme = allProgrammes[0]!;
+
+  const filteredProgrammes = allProgrammes.filter(
+    (programme) =>
+      searchQuery !== "" &&
+      programme.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      programme.name.toLowerCase() !== searchQuery.toLowerCase(),
   );
-}
+
+  return (
+    <div className="flex flex-col items-center gap-6 pt-10">
+      <>
+        <ImageComponent
+          src="/logo.svg"
+          alt="NTNU logo"
+          ratio={16 / 9}
+          width={400}
+        />
+        <H3>Find Study Programme of Today</H3>
+      </>
+      <div className="flex w-full max-w-sm items-center space-x-2">
+        <Input
+          type="search"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Computer Science"
+        />
+        <Button
+          type="submit"
+          disabled={
+            !allProgrammes.some((programme) => programme.name === searchQuery)
+          }
+          onClick={() => {
+            setGuesses([
+              allProgrammes.find(
+                (programme) => programme.name === searchQuery,
+              )!,
+              ...guesses,
+            ]);
+            setSearchQuery("");
+          }}
+        >
+          Go
+        </Button>
+      </div>
+      <div className="flex gap-2 h-[40px]">
+        {filteredProgrammes.map((programme, idx) => {
+          if (idx > 5) return false;
+          return (
+            <Button
+              variant="secondary"
+              key={programme.id}
+              onClick={() => setSearchQuery(programme.name)}
+            >
+              {programme.name}
+            </Button>
+          );
+        })}
+      </div>
+      <div className="w-[800px]">
+        {guesses.length > 0 ? (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead className="w-[100px]">Faculty</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {guesses.map((programme, idx) => (
+                <TableRow key={idx}>
+                  <TableCell>{programme.name}</TableCell>
+                  <TableCell
+                    className={`bg-${
+                      programme.faculty === dailyProgramme.faculty
+                        ? "green"
+                        : "red"
+                    }-500`}
+                  >
+                    {programme.faculty}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        ) : (
+          false
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Home;

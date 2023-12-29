@@ -1,30 +1,27 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { type AppType } from "next/app";
 
-import { Footer } from "~/components/Footer";
-import { Header } from "~/components/Header";
-import { DEFAULT } from "~/constants/fonts";
+import { Layout } from "~/components/layout";
+import { ThemeProvider } from "~/components/providers/theme-provider";
 
 import "~/styles/globals.css";
 import { api } from "~/utils/api";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <div style={{ fontFamily: DEFAULT }}>
-      <ClerkProvider
-        appearance={{
-          variables: {
-            fontFamily: DEFAULT,
-          },
-        }}
+    <ClerkProvider {...pageProps}>
+      <ThemeProvider
+        {...pageProps}
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
       >
-        <div className="h-screen flex flex-col">
-          <Header />
+        <Layout>
           <Component {...pageProps} />
-          <Footer />
-        </div>
-      </ClerkProvider>
-    </div>
+        </Layout>
+      </ThemeProvider>
+    </ClerkProvider>
   );
 };
 
