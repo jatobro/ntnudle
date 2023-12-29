@@ -71,11 +71,12 @@ const Home = () => {
           Go
         </Button>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 h-[40px]">
         {filteredProgrammes.map((programme, idx) => {
           if (idx > 5) return false;
           return (
             <Button
+              variant="secondary"
               key={programme.id}
               onClick={() => setSearchQuery(programme.name)}
             >
