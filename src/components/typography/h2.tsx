@@ -1,12 +1,8 @@
-import { type HeadingProps } from "./props";
+import { type PropsWithChildren } from "react";
 
-export const H2 = ({ centered, children }: HeadingProps) => {
+export const H2 = ({ children }: PropsWithChildren) => {
   return (
-    <h2
-      className={`${
-        centered ? "text-center" : ""
-      } scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0`}
-    >
+    <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 text-center">
       {children}
     </h2>
   );

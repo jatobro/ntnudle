@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { useRouter } from "next/router";
 import { ModeToggle } from "./mode-toggle";
-import { P } from "./typography/p";
+import { ProfileSkeleton } from "./profile-skeleton";
 import { Button } from "./ui/button";
 
 export const NavBar = () => {
@@ -12,7 +12,7 @@ export const NavBar = () => {
   const router = useRouter();
 
   return (
-    <header className="flex flex-row gap-2 bg-muted text-muted-foreground p-1 h-12">
+    <header className="flex flex-row gap-2 bg-background text-foreground p-1 h-14 border-border border-b">
       <div className="flex-1 items-center">
         <ModeToggle />
       </div>
@@ -21,7 +21,7 @@ export const NavBar = () => {
         className="text-2xl flex-1 flex justify-center items-center"
         href="/"
       >
-        <P>NTNUdle</P>
+        <div className="text-lg font-semibold">NTNUdle</div>
       </Link>
       <div className="flex-1 flex justify-end items-center">
         {isLoaded ? (
@@ -40,7 +40,9 @@ export const NavBar = () => {
           ) : (
             <Button onClick={() => router.push("/sign-in")}>Sign In</Button>
           )
-        ) : null}
+        ) : (
+          <ProfileSkeleton />
+        )}
       </div>
     </header>
   );
