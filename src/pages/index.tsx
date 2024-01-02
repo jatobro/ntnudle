@@ -1,7 +1,6 @@
 import { ImageComponent } from "~/components/image";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
-import { ToastAction } from "~/components/ui/toast";
 
 import { api } from "~/utils/api";
 
@@ -47,7 +46,6 @@ const Home = () => {
       toast({
         title: "Congratulations!!!",
         description: "You found the study programme of today!",
-        action: <ToastAction altText="close">close</ToastAction>,
       });
     } else {
       setGuesses([
@@ -60,8 +58,8 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-6 pt-10 w-5/6">
-      <div className="flex flex-col items-center w-1/3 gap-2">
+    <div className="flex flex-col items-center gap-7 pt-10 w-5/6">
+      <div className="flex flex-col items-center w-1/3 gap-4">
         <ImageComponent
           src="/logo.svg"
           alt="NTNU logo"
