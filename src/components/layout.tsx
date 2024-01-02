@@ -1,12 +1,13 @@
+import { Inter as FontSans } from "next/font/google";
+import Head from "next/head";
+
 import { type PropsWithChildren } from "react";
+
+import { cn } from "~/lib/utils";
 
 import { Footer } from "./footer";
 import { NavBar } from "./nav-bar";
-
-import { Inter as FontSans } from "next/font/google";
-
-import Head from "next/head";
-import { cn } from "~/lib/utils";
+import { Toaster } from "./ui/toaster";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
       >
         <NavBar />
         <div className="h-full flex justify-center">{children}</div>
+        <Toaster />
         <Footer />
       </main>
     </>

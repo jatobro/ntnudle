@@ -1,6 +1,7 @@
 import { ImageComponent } from "~/components/image";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
+import { ToastAction } from "~/components/ui/toast";
 
 import { api } from "~/utils/api";
 
@@ -15,8 +16,11 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
+import { useToast } from "~/components/ui/use-toast";
 
 const Home = () => {
+  const { toast } = useToast();
+
   const [searchQuery, setSearchQuery] = useState("");
   const [guesses, setGuesses] = useState<Programme[]>([]);
 
@@ -36,6 +40,24 @@ const Home = () => {
       programme.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
       programme.name.toLowerCase() !== searchQuery.toLowerCase(),
   );
+
+  const handleSubmit = () => {
+    if (searchQuery === dailyProgramme.name) {
+      setGuesses([]);
+      toast({
+        title: "Congratulations!!!",
+        description: "You found the study programme of today!",
+        action: <ToastAction altText="close">close</ToastAction>,
+      });
+    } else {
+      setGuesses([
+        allProgrammes.find((programme) => programme.name === searchQuery)!,
+        ...guesses,
+      ]);
+    }
+
+    setSearchQuery("");
+  };
 
   return (
     <div className="flex flex-col items-center gap-6 pt-10 w-5/6">
@@ -61,15 +83,7 @@ const Home = () => {
           disabled={
             !allProgrammes.some((programme) => programme.name === searchQuery)
           }
-          onClick={() => {
-            setGuesses([
-              allProgrammes.find(
-                (programme) => programme.name === searchQuery,
-              )!,
-              ...guesses,
-            ]);
-            setSearchQuery("");
-          }}
+          onClick={handleSubmit}
         >
           Go
         </Button>
@@ -102,11 +116,11 @@ const Home = () => {
                 <TableRow key={idx}>
                   <TableCell>{programme.name}</TableCell>
                   <TableCell
-                    className={`bg-${
+                    className={
                       programme.faculty === dailyProgramme.faculty
-                        ? "green"
-                        : "red"
-                    }-500`}
+                        ? "bg-green-500"
+                        : "bg-red-500"
+                    }
                   >
                     {programme.faculty}
                   </TableCell>
