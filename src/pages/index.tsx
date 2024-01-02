@@ -38,17 +38,18 @@ const Home = () => {
   );
 
   return (
-    <div className="flex flex-col items-center gap-6 pt-10">
-      <>
+    <div className="flex flex-col items-center gap-6 pt-10 w-5/6">
+      <div className="flex flex-col items-center w-1/3 gap-2">
         <ImageComponent
           src="/logo.svg"
           alt="NTNU logo"
           ratio={16 / 9}
-          width={400}
+          width={250}
         />
         <H3>Find Study Programme of Today</H3>
-      </>
-      <div className="flex w-full max-w-sm items-center space-x-2">
+      </div>
+
+      <div className="flex w-2/3 md:w-1/2 lg:w-1/3 space-x-2">
         <Input
           type="search"
           value={searchQuery}
@@ -87,7 +88,7 @@ const Home = () => {
           );
         })}
       </div>
-      <div className="w-[800px]">
+      <div className="w-5/6 max-w-screen">
         {guesses.length > 0 ? (
           <Table>
             <TableHeader>
