@@ -20,7 +20,9 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [guesses, setGuesses] = useState<Programme[]>([]);
 
-  const { data } = api.programme.getAll.useQuery();
+  const { isLoading, data } = api.programme.getAll.useQuery();
+
+  if (isLoading) return <div>Loading...</div>;
 
   if (!data) return <div>Something went wrong...</div>;
 
