@@ -1,4 +1,4 @@
-import { ImageComponent } from "~/components/image";
+import { ImageComponent as Image } from "~/components/image";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 
@@ -17,18 +17,24 @@ import {
   TableRow,
 } from "~/components/ui/table";
 import { useToast } from "~/components/ui/use-toast";
+import { Game } from "~/store/Game";
 
 const Home = () => {
+  const { isLoading, data } = api.programme.getAll.useQuery();
+
   const { toast } = useToast();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [guesses, setGuesses] = useState<Programme[]>([]);
 
-  const { isLoading, data } = api.programme.getAll.useQuery();
-
   if (isLoading) return <div>Loading...</div>;
 
   if (!data) return <div>Something went wrong...</div>;
+
+  const game = new Game(
+    undefined,
+    data.map((programme) => programme.name),
+  );
 
   const allProgrammes: Programme[] = data;
 
@@ -61,12 +67,7 @@ const Home = () => {
   return (
     <div className="flex flex-col items-center gap-7 pt-10 w-5/6">
       <div className="flex flex-col items-center w-1/3 gap-4">
-        <ImageComponent
-          src="/logo.svg"
-          alt="NTNU logo"
-          ratio={16 / 9}
-          width={250}
-        />
+        <Image src="/logo.svg" alt="NTNU logo" ratio={16 / 9} width={250} />
         <H3>Find Study Programme of Today</H3>
       </div>
 
