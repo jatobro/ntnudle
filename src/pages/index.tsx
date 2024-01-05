@@ -17,7 +17,6 @@ import {
   TableRow,
 } from "~/components/ui/table";
 import { useToast } from "~/components/ui/use-toast";
-import { Game } from "~/store/Game";
 
 const Home = () => {
   const { isLoading, data } = api.programme.getAll.useQuery();
@@ -30,11 +29,6 @@ const Home = () => {
   if (isLoading) return <div>Loading...</div>;
 
   if (!data) return <div>Something went wrong...</div>;
-
-  const game = new Game(
-    undefined,
-    data.map((programme) => programme.name),
-  );
 
   const allProgrammes: Programme[] = data;
 
