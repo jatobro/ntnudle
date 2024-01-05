@@ -6,6 +6,7 @@ import { api } from "~/utils/api";
 
 import { type Programme } from "@prisma/client";
 import { useState } from "react";
+import { ProgrammesSelector } from "~/components/programme-selector";
 import { H3 } from "~/components/typography/h3";
 import {
   Table,
@@ -86,20 +87,11 @@ const Home = () => {
           Go
         </Button>
       </div>
-      <div className="flex gap-2 h-[40px]">
-        {filteredProgrammes.map((programme, idx) => {
-          if (idx > 5) return false;
-          return (
-            <Button
-              variant="secondary"
-              key={programme.id}
-              onClick={() => setSearchQuery(programme.name)}
-            >
-              {programme.name}
-            </Button>
-          );
-        })}
-      </div>
+      <ProgrammesSelector
+        programmes={filteredProgrammes}
+        onSelect={() => setSearchQuery("")}
+        max={3}
+      />
       <div className="w-5/6 max-w-screen">
         {guesses.length > 0 ? (
           <Table>
