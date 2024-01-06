@@ -1,20 +1,24 @@
 import { type Programme } from "@prisma/client";
-import { type Programmes } from "~/types";
 
 export class Game {
+  programmes: Programme[];
   index: number;
   guesses: string[];
   answers: string[];
-  answer: Programme;
+  answer: Programme | undefined;
 
   constructor(
+    programmes: Programme[],
     serialized: string | undefined = undefined,
-    programmes: Programmes,
   ) {
+    this.programmes = programmes;
+
     if (serialized) {
       const [index, guesses, answers] = serialized.split("-");
 
-      this.index = index ? +index : 0;
+      this.index = index
+        ? +index
+        : Math.floor(Math.random() * programmes.length);
       this.guesses = guesses ? guesses.split(" ") : [];
       this.answers = answers ? answers.split(" ") : [];
     } else {
@@ -22,7 +26,14 @@ export class Game {
       this.guesses = ["", "", "", "", ""];
       this.answers = [];
     }
+    this.answer = programmes[this.index];
+  }
 
-    this.answer = programmes[this.index] ?? programmes[0];
+  enter(guess: string) {
+    const guessedProgramme = this.programmes.find(
+      (programme) => (programme.name = guess),
+    );
+
+    console.log(guessedProgramme);
   }
 }

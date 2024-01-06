@@ -6,7 +6,7 @@ import { api } from "~/utils/api";
 
 import { type Programme } from "@prisma/client";
 import { useState } from "react";
-import { ProgrammesSelector } from "~/components/programme-selector";
+import { Selector } from "~/components/selector";
 import { H3 } from "~/components/typography/h3";
 import {
   Table,
@@ -82,11 +82,7 @@ const Home = () => {
           Go
         </Button>
       </div>
-      <ProgrammesSelector
-        programmes={filteredProgrammes}
-        onSelect={() => setSearchQuery("")}
-        max={3}
-      />
+      <Selector programmes={filteredProgrammes} querySetter={setSearchQuery} />
       <div className="w-5/6 max-w-screen">
         {guesses.length > 0 ? (
           <Table>
