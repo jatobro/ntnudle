@@ -1,4 +1,4 @@
-import { ImageComponent } from "~/components/image";
+import { ImageComponent as Image } from "~/components/image";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 
@@ -6,6 +6,7 @@ import { api } from "~/utils/api";
 
 import { type Programme } from "@prisma/client";
 import { useState } from "react";
+import { Selector } from "~/components/selector";
 import { H3 } from "~/components/typography/h3";
 import {
   Table,
@@ -15,12 +16,17 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
+import { useToast } from "~/components/ui/use-toast";
 
 const Home = () => {
+  const { isLoading, data } = api.programme.getAll.useQuery();
+
+  const { toast } = useToast();
+
   const [searchQuery, setSearchQuery] = useState("");
   const [guesses, setGuesses] = useState<Programme[]>([]);
 
-  const { data } = api.programme.getAll.useQuery();
+  if (isLoading) return <div>Loading...</div>;
 
   if (!data) return <div>Something went wrong...</div>;
 
@@ -35,18 +41,31 @@ const Home = () => {
       programme.name.toLowerCase() !== searchQuery.toLowerCase(),
   );
 
+  const handleSubmit = () => {
+    if (searchQuery === dailyProgramme.name) {
+      setGuesses([]);
+      toast({
+        title: "Congratulations!!!",
+        description: "You found the study programme of today!",
+      });
+    } else {
+      setGuesses([
+        allProgrammes.find((programme) => programme.name === searchQuery)!,
+        ...guesses,
+      ]);
+    }
+
+    setSearchQuery("");
+  };
+
   return (
-    <div className="flex flex-col items-center gap-6 pt-10">
-      <>
-        <ImageComponent
-          src="/logo.svg"
-          alt="NTNU logo"
-          ratio={16 / 9}
-          width={400}
-        />
+    <div className="flex flex-col items-center gap-7 pt-10 w-5/6">
+      <div className="flex flex-col items-center w-1/3 gap-4">
+        <Image src="/logo.svg" alt="NTNU logo" ratio={16 / 9} width={250} />
         <H3>Find Study Programme of Today</H3>
-      </>
-      <div className="flex w-full max-w-sm items-center space-x-2">
+      </div>
+
+      <div className="flex w-2/3 md:w-1/2 lg:w-1/3 space-x-2">
         <Input
           type="search"
           value={searchQuery}
@@ -58,34 +77,13 @@ const Home = () => {
           disabled={
             !allProgrammes.some((programme) => programme.name === searchQuery)
           }
-          onClick={() => {
-            setGuesses([
-              allProgrammes.find(
-                (programme) => programme.name === searchQuery,
-              )!,
-              ...guesses,
-            ]);
-            setSearchQuery("");
-          }}
+          onClick={handleSubmit}
         >
           Go
         </Button>
       </div>
-      <div className="flex gap-2 h-[40px]">
-        {filteredProgrammes.map((programme, idx) => {
-          if (idx > 5) return false;
-          return (
-            <Button
-              variant="secondary"
-              key={programme.id}
-              onClick={() => setSearchQuery(programme.name)}
-            >
-              {programme.name}
-            </Button>
-          );
-        })}
-      </div>
-      <div className="w-[800px]">
+      <Selector programmes={filteredProgrammes} querySetter={setSearchQuery} />
+      <div className="w-5/6 max-w-screen">
         {guesses.length > 0 ? (
           <Table>
             <TableHeader>
@@ -99,11 +97,11 @@ const Home = () => {
                 <TableRow key={idx}>
                   <TableCell>{programme.name}</TableCell>
                   <TableCell
-                    className={`bg-${
+                    className={
                       programme.faculty === dailyProgramme.faculty
-                        ? "green"
-                        : "red"
-                    }-500`}
+                        ? "bg-green-500"
+                        : "bg-red-500"
+                    }
                   >
                     {programme.faculty}
                   </TableCell>
