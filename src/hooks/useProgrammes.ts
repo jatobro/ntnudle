@@ -1,3 +1,4 @@
+import { type Programme } from "@prisma/client";
 import { api } from "~/utils/api";
 
 export const useProgrammes = () => {
@@ -5,5 +6,5 @@ export const useProgrammes = () => {
 
   if (isLoading) return { isLoading, programmes: [] };
 
-  return { isLoading, programmes: data ? [...data] : [] };
+  return { isLoading, programmes: data ? [...data] : ([] as Programme[]) };
 };
